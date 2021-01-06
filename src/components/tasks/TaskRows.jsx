@@ -19,7 +19,7 @@ export const TaskRows = ({ taskItems, toggleTask }) => {
     return (
         <Fragment>
             {taskItems.map((task, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} hover>
                     <TableCell align="center" component="th" scope="row">
                         {task.name}
                     </TableCell>
