@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import AppNavBar from '../components/layout/AppNavBar';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -26,28 +26,52 @@ const useStyles = makeStyles(() => ({
 export default function Landing() {
     const [userName, setUserName] = useState('gonzalo');
 
-    const [taskItems, setTaskItems] = useState([
-        {
-            name: 'tarea 1',
-            id: 1,
-            done: false
-        },
-        {
-            name: 'tarea 2',
-            id: 2,
-            done: false
-        },
-        {
-            name: 'tarea 3',
-            id: 3,
-            done: true
-        },
-        {
-            name: 'tarea 4',
-            id: 4,
-            done: false
+    const [taskItems, setTaskItems] = useState([]);
+
+    useEffect(() => {
+        const tareasLocales = localStorage.getItem('tasks');
+
+        const localUserName = localStorage.getItem('userName');
+
+        if (localUserName) {
+            setUserName(JSON.parse(localUserName));
+        } else {
+            setUserName('Nombre de Ejemplo');
         }
-    ]);
+
+        if (tareasLocales) {
+            setTaskItems(JSON.parse(tareasLocales));
+        } else {
+            setTaskItems([
+                {
+                    name: 'tarea 1 de ejemplo',
+                    id: 1,
+                    done: false
+                },
+                {
+                    name: 'tarea 2',
+                    id: 2,
+                    done: false
+                },
+                {
+                    name: 'tarea 3',
+                    id: 3,
+                    done: true
+                },
+                {
+                    name: 'tarea 4',
+                    id: 4,
+                    done: false
+                }
+            ]);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem('tasks', JSON.stringify(taskItems));
+
+        // de esta forma llamamos al "componentDidMount" para un estado especifico
+    }, [taskItems]);
 
     const toggleTask = (task) => {
         setTaskItems(taskItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t)));

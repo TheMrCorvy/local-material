@@ -143,7 +143,7 @@ export default function Landing({ userName, taskItems }) {
                 <AppBar position="fixed" style={{ background: '#1a73e8' }}>
                     <Toolbar>
                         <Typography variant="h6" className={classes.title}>
-                            Tareas de {userName}
+                            Tareas de: {userName}
                         </Typography>
                         <Button
                             aria-controls="simple-menu"
