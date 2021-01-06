@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { TaskRow } from '../components/tasks/TaskRow';
+import { TaskRows } from '../components/tasks/TaskRows';
 
 const useStyles = makeStyles(() => ({
     container: {
@@ -61,7 +61,7 @@ export default function Landing() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TaskRow taskItems={taskItems} />
+                            <TaskRows taskItems={taskItems} />
                         </TableBody>
                     </Table>
                 </TableContainer>

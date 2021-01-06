@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export const TaskRow = ({ taskItems }) => {
+export const TaskRows = ({ taskItems }) => {
     const classes = useStyles();
     return (
         <Fragment>
