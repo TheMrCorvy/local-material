@@ -10,11 +10,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { TaskRows } from '../components/tasks/TaskRows';
+import { TaskCreator } from '../components/tasks/TaskCreator';
 
 const useStyles = makeStyles(() => ({
     container: {
-        height: '100vh',
-        paddingTop: 100
+        height: 'auto',
+        paddingTop: 100,
+        paddingBottom: 100
     },
     table: {
         minWidth: 650
@@ -51,6 +53,21 @@ export default function Landing() {
         setTaskItems(taskItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t)));
     };
 
+    const addTask = (taskName) => {
+        if (!taskItems.find((t) => t.name === taskName)) {
+            const newTask = {
+                name: taskName,
+                done: false
+            };
+
+            setTaskItems([...taskItems, newTask]);
+
+            return false;
+        } else {
+            return true;
+        }
+    };
+
     const classes = useStyles();
 
     return (
@@ -70,6 +87,9 @@ export default function Landing() {
                         </TableBody>
                     </Table>
                 </TableContainer>
+            </Container>
+            <Container maxWidth="lg" className={classes.container} style={{ paddingTop: 0 }}>
+                <TaskCreator callback={addTask} />
             </Container>
             <AppNavBar userName={userName} taskItems={taskItems.filter((t) => !t.done).length} />
         </Fragment>
