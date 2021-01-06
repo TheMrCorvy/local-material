@@ -60,12 +60,22 @@ export default function Landing() {
         right: false
     });
 
+    let messageLogged = false;
+
     const toggleDrawer = (anchor, open) => (event) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
             return;
         }
 
         setState({ ...state, [anchor]: open });
+
+        if (!messageLogged) {
+            console.log(
+                'The following error message is not from my code, but actually from material ui...'
+            );
+
+            messageLogged = !messageLogged;
+        }
     };
 
     const list = (anchor) => (
