@@ -185,7 +185,7 @@ export default function Landing({ userName, taskItems }) {
                     onOpen={toggleDrawer('right', true)}>
                     {list('right')}
                 </SwipeableDrawer>
-                <AppBar position="fixed" className={classes.appBar}>
+                <AppBar position="fixed" className={classes.appBar} elevation={4}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="open drawer">
                             <MoreIcon />
