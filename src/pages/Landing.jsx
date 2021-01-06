@@ -47,6 +47,10 @@ export default function Landing() {
         }
     ]);
 
+    const toggleTask = (task) => {
+        setTaskItems(taskItems.map((t) => (t.name === task.name ? { ...t, done: !t.done } : t)));
+    };
+
     const classes = useStyles();
 
     return (
@@ -58,10 +62,11 @@ export default function Landing() {
                             <TableRow>
                                 <TableCell align="center">Nombre</TableCell>
                                 <TableCell align="center">Completado</TableCell>
+                                <TableCell align="center">Cambiar Estado</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TaskRows taskItems={taskItems} />
+                            <TaskRows taskItems={taskItems} toggleTask={toggleTask} />
                         </TableBody>
                     </Table>
                 </TableContainer>

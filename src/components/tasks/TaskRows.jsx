@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(() => ({
     textSuccess: {
@@ -12,8 +13,9 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-export const TaskRows = ({ taskItems }) => {
+export const TaskRows = ({ taskItems, toggleTask }) => {
     const classes = useStyles();
+
     return (
         <Fragment>
             {taskItems.map((task, index) => (
@@ -27,6 +29,14 @@ export const TaskRows = ({ taskItems }) => {
                         scope="row"
                         className={task.done ? classes.textSuccess : classes.textDanger}>
                         {task.done ? 'Tarea completada' : 'Tarea sin completar'}
+                    </TableCell>
+                    <TableCell align="center" component="th" scope="row">
+                        <Checkbox
+                            checked={task.done}
+                            color="primary"
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            onChange={() => toggleTask(task)}
+                        />
                     </TableCell>
                 </TableRow>
             ))}
