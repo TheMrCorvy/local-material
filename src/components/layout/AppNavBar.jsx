@@ -17,6 +17,8 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
+let messageLogged = false;
+
 const useStyles = makeStyles((theme) => ({
     list: {
         width: 250
@@ -59,8 +61,6 @@ export default function Landing() {
         bottom: false,
         right: false
     });
-
-    let messageLogged = false;
 
     const toggleDrawer = (anchor, open) => (event) => {
         if (event && event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
