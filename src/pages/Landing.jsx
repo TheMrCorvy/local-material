@@ -14,7 +14,7 @@ import { TaskRows } from '../components/tasks/TaskRows';
 const useStyles = makeStyles(() => ({
     container: {
         height: '100vh',
-        paddingTop: 50
+        paddingTop: 100
     },
     table: {
         minWidth: 650
@@ -56,7 +56,7 @@ export default function Landing() {
     return (
         <Fragment>
             <Container maxWidth="lg" className={classes.container}>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} elevation={2}>
                     <Table className={classes.table} size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
@@ -71,7 +71,7 @@ export default function Landing() {
                     </Table>
                 </TableContainer>
             </Container>
-            <AppNavBar />
+            <AppNavBar userName={userName} taskItems={taskItems.filter((t) => !t.done).length} />
         </Fragment>
     );
 }

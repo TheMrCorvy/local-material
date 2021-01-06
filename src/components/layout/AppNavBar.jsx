@@ -1,21 +1,30 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import TranslateIcon from '@material-ui/icons/Translate';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import {
+    Badge,
+    MenuItem,
+    Menu,
+    Button,
+    Typography,
+    Fab,
+    Toolbar,
+    AppBar,
+    ListItemText,
+    ListItemIcon,
+    ListItem,
+    Divider,
+    List,
+    SwipeableDrawer,
+    IconButton
+} from '@material-ui/core';
 
 let messageLogged = false;
 
@@ -26,19 +35,10 @@ const useStyles = makeStyles((theme) => ({
     fullList: {
         width: 'auto'
     },
-    text: {
-        padding: theme.spacing(2, 2, 0)
-    },
-    paper: {
-        paddingBottom: 50
-    },
-    subheader: {
-        backgroundColor: theme.palette.background.paper
-    },
     appBar: {
         top: 'auto',
         bottom: 0,
-        background: '#1976d2'
+        background: '#1a73e8'
     },
     grow: {
         flexGrow: 1
@@ -50,11 +50,38 @@ const useStyles = makeStyles((theme) => ({
         left: 0,
         right: 0,
         margin: '0 auto'
+    },
+    root: {
+        flexGrow: 1
+    },
+    menuButton: {
+        marginRight: theme.spacing(2)
+    },
+    title: {
+        flexGrow: 1,
+        textTransform: 'capitalize'
     }
 }));
 
-export default function Landing() {
+export default function Landing({ userName, taskItems }) {
     const classes = useStyles();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+        if (!messageLogged) {
+            console.log(
+                'The following error message is not from my code, but actually from material ui...'
+            );
+            messageLogged = !messageLogged;
+        }
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -111,8 +138,46 @@ export default function Landing() {
     );
 
     return (
-        <div>
+        <div className={classes.root}>
             <React.Fragment>
+                <AppBar position="fixed" style={{ background: '#1a73e8' }}>
+                    <Toolbar>
+                        <Typography variant="h6" className={classes.title}>
+                            Tareas de {userName}
+                        </Typography>
+                        <Button
+                            aria-controls="simple-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                            color="inherit"
+                            startIcon={<TranslateIcon />}>
+                            Open Menu
+                        </Button>
+                        <Menu
+                            id="simple-menu"
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}>
+                            <MenuItem onClick={handleClose}>Profile</MenuItem>
+                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                            <MenuItem onClick={handleClose}>Logout</MenuItem>
+                        </Menu>
+                        <IconButton aria-label={`show ${taskItems} tasks to do`} color="inherit">
+                            <Badge badgeContent={taskItems} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            edge="end"
+                            className={classes.menuButton}
+                            color="inherit"
+                            aria-label="menu"
+                            onClick={toggleDrawer('right', true)}>
+                            <MenuIcon />
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
                 <SwipeableDrawer
                     anchor={'right'}
                     open={state['right']}
@@ -120,13 +185,13 @@ export default function Landing() {
                     onOpen={toggleDrawer('right', true)}>
                     {list('right')}
                 </SwipeableDrawer>
-                <AppBar position="fixed" color="primary" className={classes.appBar}>
+                <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="open drawer">
                             <MoreIcon />
                         </IconButton>
                         <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-                            <AddIcon />
+                            <HomeIcon />
                         </Fab>
                         <div className={classes.grow} />
                         <IconButton
