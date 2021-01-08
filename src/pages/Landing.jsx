@@ -97,7 +97,7 @@ export default function Landing() {
     return (
         <Fragment>
             <Container maxWidth="lg" className={classes.container}>
-                <TableContainer component={Paper} elevation={2}>
+                <TableContainer component={Paper}>
                     <Table className={classes.table} size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>

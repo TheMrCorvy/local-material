@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import Landing from './pages/Landing';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './themeConfig';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Landing />
+        <ThemeProvider theme={theme}>
+            <Landing />
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
